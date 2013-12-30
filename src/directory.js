@@ -1,4 +1,4 @@
-var cls = require('./class')
+var cls = require('./lib/class')
   , fs = require('fs')
   , path = require('path')
   , File = require('./file')

@@ -9,7 +9,7 @@ describe('Directory', function() {
         dir = new Directory(dirPath);
     });
 
-    describe('.file', function() {
+    describe('.path', function() {
         it('should expose its path', function() {
             dir.path.should.equal(path.normalize(dirPath));
         })

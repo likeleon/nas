@@ -9,7 +9,7 @@ describe('mvc', function() {
             .end(function(err, res) {
                 res.should.have.status(200);
                 res.text.should.include('<h1>nas</h1>');
-                res.text.should.include('<li>');
+                res.text.should.include('<li>amazing.txt</li>');
                 done();
             })
         })
