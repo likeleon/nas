@@ -1,4 +1,4 @@
-var Directory = require('../directory')
+var Directory = require('../src/directory')
   , path = require('path');
 
 describe('Directory', function() {
@@ -9,18 +9,18 @@ describe('Directory', function() {
         dir = new Directory(dirPath);
     });
 
-    describe('.getPath()', function() {
-        it('should return directory path', function() {
-            dir.getPath().should.equal(path.normalize(dirPath));
+    describe('.file', function() {
+        it('should expose its path', function() {
+            dir.path.should.equal(path.normalize(dirPath));
         })
     });
 
-    describe('.getFiles()', function() {
+    describe('.files()', function() {
        it('should return files under directory', function() {
-           var files = dir.getFiles();
+           var files = dir.files();
            files.should.have.length(1);
            files[0].should.be.an.instanceof(File);
-           files[0].getPath().should.be.equal(path.join(dirPath, "amazing.txt"));
+           files[0].path.should.be.equal(path.join(dirPath, "amazing.txt"));
        })
     });
 });
