@@ -20,15 +20,13 @@ describe('socket.io', function() {
 
     describe('connect()', function() {
        it('should return files', function (done) {
-           client.once('connect', function() {
-               client.once('files', function (files) {
-                   files.should.have.length(1);
-                   files[0].name.should.be.equal("amazing.txt");
+           client.once('files', function (files) {
+               files.should.have.length(1);
+               files[0].name.should.be.equal("amazing.txt");
 
-                   client.disconnect();
-                   done();
-               });
-           })
+               client.disconnect();
+               done();
+           });
        });
    });
 });
