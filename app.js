@@ -8,12 +8,8 @@ var http = require('http');
 var path = require('path');
 var routes = require('./routes')();
 
-var app = module.exports = express();
-var server = http.createServer(app);
-
-var io = require('socket.io').listen(server);
-
-var Directory = require('./src/directory');
+var app = express();
+var server = exports.server = http.createServer(app);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -40,15 +36,16 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 
+server.listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
+
+var io = require('socket.io').listen(server);
+var Directory = require('./src/directory');
+
 io.sockets.on('connection', function(socket) {
     socket.on('list files', function() {
-        var dir = new Directory(path.join(__dirname, '../test/fixtures'));
+        var dir = new Directory(path.join(__dirname, 'test/fixtures'));
         socket.emit('files', dir.files());
     });
 });
-
-if (!module.parent) {
-    server.listen(app.get('port'), function(){
-      console.log('Express server listening on port ' + app.get('port'));
-    });
-}

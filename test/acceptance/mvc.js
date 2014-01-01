@@ -4,7 +4,7 @@ var request = require('supertest')
 describe('mvc', function() {
     describe('GET /', function() {
         it('should display title', function(done) {
-            request(app)
+            request(app.server)
             .get('/')
             .end(function(err, res) {
                 res.should.have.status(200);

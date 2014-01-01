@@ -9,6 +9,11 @@
     <orderEntry type="library" name="mocha-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="Node.js v0.10.23 Core Modules" level="application" />
     <orderEntry type="library" name="should-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="node-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="Node.js v0.10.22 Core Modules" level="application" />
+    <orderEntry type="library" name="supertest-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="underscore-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="socket.io-DefinitelyTyped" level="application" />
   </component>
 </module>
 
