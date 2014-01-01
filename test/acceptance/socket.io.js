@@ -28,8 +28,6 @@ describe('socket.io', function() {
                    client.disconnect();
                    done();
                });
-
-               client.emit('list files');
            })
        });
    });

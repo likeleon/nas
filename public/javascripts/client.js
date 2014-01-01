@@ -1,10 +1,9 @@
 var socket = io.connect();
 
 socket.on('files', function(files) {
-    $('#files').html('');
+    var html = "";
     for (var i = 0; i < files.length; ++i) {
-        $('#files').append('<li>' + files[i].name + '</li>')
+        html += '<li>' + files[i].name + '</li>';
     }
+    $('#files').html(html);
 });
-
-socket.emit('list files');

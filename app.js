@@ -44,8 +44,6 @@ var io = require('socket.io').listen(server);
 var Directory = require('./src/directory');
 
 io.sockets.on('connection', function(socket) {
-    socket.on('list files', function() {
-        var dir = new Directory(path.join(__dirname, 'test/fixtures'));
-        socket.emit('files', dir.files());
-    });
+    var dir = new Directory(path.join(__dirname, 'test/fixtures'));
+    socket.emit('files', dir.files());
 });
