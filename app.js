@@ -4,11 +4,16 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
 var http = require('http');
 var path = require('path');
+var routes = require('./routes')();
 
 var app = module.exports = express();
+var server = http.createServer(app);
+
+var io = require('socket.io').listen(server);
+
+var Directory = require('./src/directory');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -30,13 +35,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
 
+io.sockets.on('connection', function(socket) {
+    socket.on('list files', function() {
+        var dir = new Directory(path.join(__dirname, '../test/fixtures'));
+        socket.emit('files', dir.files());
+    });
+});
+
 if (!module.parent) {
-    http.createServer(app).listen(app.get('port'), function(){
+    server.listen(app.get('port'), function(){
       console.log('Express server listening on port ' + app.get('port'));
     });
 }
