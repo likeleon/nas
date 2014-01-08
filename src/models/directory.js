@@ -1,8 +1,8 @@
-var cls = require('./lib/class')
+var cls = require('./../lib/class')
   , fs = require('fs')
   , path = require('path')
   , File = require('./file')
-  , _ = require('./lib/underscore-min');
+  , _ = require('./../lib/underscore-min');
 
 module.exports = Directory = cls.Class.extend({
     init: function(path_) {

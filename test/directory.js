@@ -1,4 +1,4 @@
-var Directory = require('../src/directory')
+var Directory = require('../src/models/directory')
   , path = require('path');
 
 describe('Directory', function() {

@@ -1,5 +1,5 @@
-var cls = require('./lib/class')
-  , utils = require('./utils')
+var cls = require('./../lib/class')
+  , utils = require('./../utils')
   , path = require('path');
 
 module.exports = File = cls.Class.extend({
