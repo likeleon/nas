@@ -1,0 +1,13 @@
+{
+    "app": {
+        "js": [
+            "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js",
+            "/socket.io/socket.io.js",
+
+            "/javascripts/client.js"
+        ],
+        "css": [
+            "/stylesheets/style.css"
+        ]
+    }
+}

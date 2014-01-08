@@ -1,3 +1,4 @@
+"use strict";
 
 exports.isAbsolute = function(path) {
     if (path[0] == '/')

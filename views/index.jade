@@ -1,7 +1,9 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
-    div#files
-
+doctype html
+html
+  head
+    title= title
+    != env.getManifestFiles("app")
+  body
+    h1= title
+    p Welcome to #{title}
+      div#files

@@ -1,7 +1,7 @@
-var request = require('supertest')
-  , app = require('../../src/server');
+var request = require('supertest');
+var app = require('../../src/server');
 
-describe('mvc', function() {
+describe('routes/pages', function() {
     describe('GET /', function() {
         it('should display title', function(done) {
             request(app.server)

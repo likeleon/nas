@@ -1,9 +1,9 @@
-var Directory = require('../src/models/directory')
+var Directory = require('../../src/models/directory')
   , path = require('path');
 
 describe('Directory', function() {
     var dir;
-    var dirPath = __dirname + '/fixtures';
+    var dirPath = __dirname + '/../fixtures';
 
     beforeEach(function() {
         dir = new Directory(dirPath);
