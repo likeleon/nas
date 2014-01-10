@@ -1,9 +1,11 @@
 doctype html
-html
+html(ng-app)
   head
     title= title
     != env.getManifestFiles("app")
   body
     h1= title
     p Welcome to #{title}
-      div#files
+      div(ng-controller="FilesCtrl")
+        ul
+          li(ng-repeat="file in files") {{file.name}}

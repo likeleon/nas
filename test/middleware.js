@@ -28,8 +28,9 @@ describe('middleware', function() {
                 var files = nas.getManifestFiles("app");
                 files.should.include('<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">');
                 files.should.include('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>');
+                files.should.include('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>');
                 files.should.include('<script type="text/javascript" src="/socket.io/socket.io.js"></script>');
-                files.should.include('<script type="text/javascript" src="/javascripts/client.js"></script>');
+                files.should.include('<script type="text/javascript" src="/javascripts/controllers/filesCtrl.js"></script>');
             });
 
             describe('with a non-existing page', function() {
