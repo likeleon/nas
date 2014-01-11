@@ -5,6 +5,8 @@
             "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js",
             "/socket.io/socket.io.js",
 
+            "/javascripts/app.js",
+            "/javascripts/services/socketServices.js",
             "/javascripts/controllers/filesCtrl.js"
         ],
         "css": [
