@@ -26,16 +26,16 @@ describe('middleware', function() {
                 nas.getManifestFiles.should.be.type('function');
 
                 var files = nas.getManifestFiles("app");
-                files.should.include('<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">');
+                files.should.include('<link rel="stylesheet" type="text/css" href="/css/style.css">');
 
                 files.should.include('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>');
                 files.should.include('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>');
 
                 files.should.include('<script type="text/javascript" src="/socket.io/socket.io.js"></script>');
 
-                files.should.include('<script type="text/javascript" src="/javascripts/app.js"></script>');
-                files.should.include('<script type="text/javascript" src="/javascripts/services/');
-                files.should.include('<script type="text/javascript" src="/javascripts/controllers/');
+                files.should.include('<script type="text/javascript" src="/js/app.js"></script>');
+                files.should.include('<script type="text/javascript" src="/js/services/');
+                files.should.include('<script type="text/javascript" src="/js/controllers/');
             });
 
             describe('with a non-existing page', function() {
