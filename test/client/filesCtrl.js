@@ -18,7 +18,7 @@ describe('Files controller', function() {
         });
 
         it ('should expose received files', function() {
-            var files = [{ name: "a.txt", path: "/root/a.txt" }, { name: "b.txt", path: "/root/b.txt" }];
+            var files = [{ name: "a.txt", size: "100" }, { name: "b.txt", size: "200" }];
             socket.emit("files", files);
             scope.files.should.equal(files);
         });

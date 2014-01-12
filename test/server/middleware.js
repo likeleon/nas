@@ -26,7 +26,6 @@ describe('middleware', function() {
                 nas.getManifestFiles.should.be.type('function');
 
                 var files = nas.getManifestFiles("app");
-                files.should.include('<link rel="stylesheet" type="text/css" href="/css/style.css">');
 
                 files.should.include('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>');
                 files.should.include('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>');

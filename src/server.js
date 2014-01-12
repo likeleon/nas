@@ -7,6 +7,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var _ = require('./lib/underscore-min.js');
 
 var app = express();
 
@@ -47,5 +48,8 @@ var Directory = require('./models/directory');
 
 io.sockets.on('connection', function(socket) {
     var dir = new Directory(path.join(__dirname, '../test/server/fixtures'));
-    socket.emit('files', dir.files());
+    var files = _.map(dir.files(), function(file) {
+        return { "name": file.name, "size": file.size, "modifiedTime": file.modifiedTime }
+    });
+    socket.emit('files', files);
 });

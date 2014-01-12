@@ -4,8 +4,15 @@ html(ng-app="nas")
     title= title
     != env.getManifestFiles("app")
   body
-    h1= title
-    p Welcome to #{title}
-      div(ng-controller="FilesCtrl")
-        ul
-          li(ng-repeat="file in files") {{file.name}}
+    div(ng-controller="FilesCtrl")
+      table.table.table-hover
+        thead
+          tr
+            th Name
+            th Size
+            th Modified
+        tbody
+          tr(ng-repeat="file in files")
+            td {{file.name}}
+            td {{file.size}} KB
+            td {{file.modifiedTime | date:'medium'}}

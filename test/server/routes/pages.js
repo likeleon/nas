@@ -3,12 +3,12 @@ var app = require('../../../src/server');
 
 describe('routes/pages', function() {
     describe('GET /', function() {
-        it('should display title', function(done) {
+        it('should display directory table', function(done) {
             request(app.server)
             .get('/')
             .end(function(err, res) {
                 res.should.have.status(200);
-                res.text.should.include('<h1>nas</h1>');
+                res.text.should.include('<table class="table table-hover">');
                 done();
             })
         })

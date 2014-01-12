@@ -1,6 +1,7 @@
-var cls = require('./../lib/class')
-  , utils = require('./../utils')
-  , path = require('path');
+var cls = require('./../lib/class');
+var utils = require('./../utils');
+var path = require('path');
+var fs = require('fs');
 
 module.exports = File = cls.Class.extend({
     init: function(path_) {
@@ -9,5 +10,9 @@ module.exports = File = cls.Class.extend({
 
         this.path = path_;
         this.name = path.basename(path_);
+
+        var stats = fs.statSync(path_);
+        this.size = stats.size;
+        this.modifiedTime = stats.mtime;
     }
 });
