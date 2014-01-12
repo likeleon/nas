@@ -1,7 +1,7 @@
 "use strict";
 
-angular.module('socketServices', []).
-    factory('socket', function($rootScope) {
+angular.module("socketServices", []).
+    factory("socket", function($rootScope) {
         var socket = io.connect();
         return {
             on: function(eventName, callback) {
