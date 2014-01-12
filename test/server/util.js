@@ -1,4 +1,4 @@
-var utils = require('../src/utils')
+var utils = require('../../src/utils')
   , assert = require('assert');
 
 describe('utils.isAbsolute(path)', function() {

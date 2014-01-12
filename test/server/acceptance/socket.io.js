@@ -1,6 +1,6 @@
 var io = require('socket.io-client')
-  , File = require('../../src/models/file')
-  , app = require('../../src/server')
+  , File = require('../../../src/models/file')
+  , app = require('../../../src/server')
   , http = require('http');
 
 describe('socket.io', function() {

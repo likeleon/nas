@@ -1,7 +1,7 @@
 "use strict";
 
-var File = require('../../src/models/file')
-  , utils = require('../../src/utils')
+var File = require('../../../src/models/file')
+  , utils = require('../../../src/utils')
   , assert = require('assert')
   , path = require('path');
 

@@ -1,4 +1,4 @@
-var middleware = require('../src/middleware');
+var middleware = require('../../src/middleware');
 var assert = require('assert');
 
 describe('middleware', function() {

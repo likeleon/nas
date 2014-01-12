@@ -1,5 +1,5 @@
 var request = require('supertest');
-var app = require('../../src/server');
+var app = require('../../../src/server');
 
 describe('routes/pages', function() {
     describe('GET /', function() {
