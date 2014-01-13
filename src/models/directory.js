@@ -11,11 +11,21 @@ module.exports = Directory = cls.Class.extend({
 
     files: function() {
         if (typeof this._files === 'undefined') {
+            var files = [];
+            var dirPath = this.path;
+
             var fileNames = fs.readdirSync(this.path);
-            this._files = _.map(fileNames, function(fileName) {
-                var filePath = path.join(this.dirPath, fileName);
-                return new File(filePath);
-            }, { dirPath: this.path });
+            fileNames.forEach(function(fileName) {
+                var filePath = path.join(dirPath, fileName);
+
+                if (fs.statSync(filePath).isDirectory())
+                    return;
+
+                var file = new File(filePath);
+                files.push(file);
+            });
+
+            this._files = files;
         }
         return this._files;
     }

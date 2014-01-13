@@ -28,7 +28,6 @@ app.use(app.router);
 app.use(require('less-middleware')({ src: path.join(__dirname, '/../public') }));
 app.use(express.static(path.join(__dirname, '/../public')));
 
-// development only
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
@@ -44,13 +43,3 @@ server.listen(app.get('port'), function(){
 
 // socket.io
 require('./socket').listen(server);
-//var io = require('socket.io').listen(server);
-//var Directory = require('./models/directory');
-//
-//io.sockets.on('connection', function(socket) {
-//    var dir = new Directory(path.join(__dirname, '../test/server/fixtures'));
-//    var files = _.map(dir.files(), function(file) {
-//        return { "name": file.name, "size": file.size, "modifiedTime": file.modifiedTime }
-//    });
-//    socket.emit('files', files);
-//});

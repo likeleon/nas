@@ -18,9 +18,8 @@ describe('Directory', function() {
     describe('.files()', function() {
        it('should return files under directory', function() {
            var files = dir.files();
-           files.should.have.length(1);
-           files[0].should.be.an.instanceof(File);
-           files[0].path.should.be.equal(path.join(dirPath, "amazing.txt"));
+           var expectedFiles = [ new File(path.join(dirPath, "amazing.txt")) ];
+           files.should.eql(expectedFiles);
        })
     });
 });
