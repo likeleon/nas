@@ -21,11 +21,11 @@ describe('socket', function () {
     });
 
     describe('connect()', function() {
-        it('should return files', function (done) {
-            client.once('files', function (dir, files) {
+        it('should return dirInfo', function (done) {
+            client.once('dirInfo', function (dirInfo) {
+                dirInfo.path.should.equal('');
                 var expectedFiles = [{ name: 'amazing.txt', size: 8, modifiedTime: '2014-01-01T17:17:52.000Z' }];
-                dir.should.equal('');
-                files.should.eql(expectedFiles);
+                dirInfo.files.should.eql(expectedFiles);
                 done();
             });
         });
@@ -33,13 +33,11 @@ describe('socket', function () {
 
     describe('change directory', function() {
         it('should return files with changing directory', function (done) {
-            client.once('change directory', function (dir, files) {
-                dir.should.equal('foo');
-                files.should.eql([]);
+            client.emit('change directory', 'foo', function (dirInfo) {
+                dirInfo.path.should.equal('foo');
+                dirInfo.files.should.eql([]);
                 done();
             });
-
-            client.emit('change directory', 'foo');
         });
     });
 });

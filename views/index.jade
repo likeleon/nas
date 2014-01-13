@@ -5,6 +5,11 @@ html(ng-app="nas")
     != env.getManifestFiles("app")
   body
     div(ng-controller="FilesCtrl")
+      nav.navbar-header(role='navigation')
+        div.navbar-header
+          p.navbar-brand= title
+          p.navbar-text /{{path}}
+
       table.table.table-hover
         thead
           tr

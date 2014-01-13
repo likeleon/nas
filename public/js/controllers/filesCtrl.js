@@ -2,8 +2,9 @@
 
 nas.controller("FilesCtrl", ['$scope', 'socket',
     function ($scope, socket) {
-        socket.on('files', function(files) {
-            $scope.files = files;
+        socket.on('dirInfo', function(dirInfo) {
+            $scope.path = dirInfo.path;
+            $scope.files = dirInfo.files;
         });
     }
 ]);

@@ -18,9 +18,14 @@ describe('Files controller', function() {
         });
 
         it ('should expose received files', function() {
-            var files = [{ name: "a.txt", size: "100" }, { name: "b.txt", size: "200" }];
-            socket.emit("files", files);
-            scope.files.should.equal(files);
+            var dirInfo = {
+                path: 'foo/bar',
+                files: [{ name: "a.txt", size: "100" }, { name: "b.txt", size: "200" }]
+            };
+            socket.emit("dirInfo", dirInfo);
+
+            scope.path.should.equal(dirInfo.path);
+            scope.files.should.equal(dirInfo.files);
         });
     })
 });

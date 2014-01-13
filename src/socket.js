@@ -7,24 +7,26 @@ module.exports.listen = function(server) {
     var baseDir = path.join(__dirname, '../test/server/fixtures');
     var io = socketio.listen(server);
 
-    var emitFiles = function(eventName, socket, dirPath) {
+    var getDirInfo = function(dirPath) {
         var dir = new Directory(dirPath);
         var files = _.map(dir.files(), function(file) {
             return { "name": file.name, "size": file.size, "modifiedTime": file.modifiedTime }
         });
 
-        var relativeDir = path.relative(baseDir, dirPath);
-        socket.emit(eventName, relativeDir, files);
+        return {
+            path: path.relative(baseDir, dirPath),
+            files: files
+        };
     };
 
     io.sockets.on('connection', function(socket) {
-        emitFiles('files', socket, baseDir);
+        socket.emit('dirInfo', getDirInfo(baseDir));
 
-        socket.on('change directory', function(dir) {
+        socket.on('change directory', function(dir, callback) {
             var newDir = path.join(baseDir, dir);
-            emitFiles('change directory', socket, newDir);
+            callback(getDirInfo(newDir));
         });
     });
 
     return io;
-}
+};
