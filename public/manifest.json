@@ -13,7 +13,9 @@
             "/js/controllers/filesCtrl.js"
         ],
         "css": [
-            "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+            "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css",
+
+            "/css/nas.min.css"
         ]
     }
 }
