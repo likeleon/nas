@@ -2,9 +2,10 @@ var socketio = require('socket.io');
 var Directory = require('./models/directory');
 var path = require('path');
 var _ = require('./lib/underscore-min.js');
+var nconf = require('nconf');
 
 module.exports.listen = function(server) {
-    var baseDir = path.join(__dirname, '../test/server/fixtures');
+    var baseDir = nconf.get('basedir');
     var io = socketio.listen(server);
 
     var getDirInfo = function(dirPath) {

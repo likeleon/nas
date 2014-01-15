@@ -8,13 +8,20 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var _ = require('./lib/underscore-min.js');
+var nconf = require('nconf');
 
-var app = express();
+/**
+ * Setup configurations
+ */
+require('./utils').setupConfig();
+
 
 /**
  * Server configuration
  */
-app.set('port', process.env.PORT || 3000);
+var app = express();
+
+app.set('port', nconf.get('port'));
 app.set('views', path.join(__dirname, '/../views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -37,9 +44,13 @@ app.use(require('./routes/pages').middleware);
 
 var server = exports.server = http.createServer(app);
 
+
+/**
+ * Start server
+ */
 server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });
 
-// socket.io
+// start socket.io server
 require('./socket').listen(server);
