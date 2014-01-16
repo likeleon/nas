@@ -9,13 +9,28 @@ module.exports.listen = function(server) {
     var io = socketio.listen(server);
 
     var getDirInfo = function(dirPath) {
-        var dir = new Directory(dirPath);
-        var files = _.map(dir.files(), function(file) {
-            return { "name": file.name, "size": file.size, "modifiedTime": file.modifiedTime }
+        var directory = new Directory(dirPath);
+
+        var dirs = _.map(directory.dirs(), function(dir) {
+            return {
+                "type": "directory",
+                "name": dir.name,
+                "modifiedTime": dir.modifiedTime
+            }
+        });
+
+        var files = _.map(directory.files(), function(file) {
+            return {
+                "type": "file",
+                "name": file.name,
+                "size": file.size,
+                "modifiedTime": file.modifiedTime
+            }
         });
 
         return {
             path: path.relative(baseDir, dirPath),
+            dirs: dirs,
             files: files
         };
     };

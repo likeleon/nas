@@ -17,15 +17,18 @@ describe('Files controller', function() {
             })
         });
 
-        it ('should expose received files', function() {
+        it ('should expose received directories and files', function() {
             var dirInfo = {
                 path: 'foo/bar',
+                dirs: [{ name: "fixture" }],
                 files: [{ name: "a.txt", size: "100" }, { name: "b.txt", size: "200" }]
             };
             socket.emit("dirInfo", dirInfo);
 
             scope.path.should.equal(dirInfo.path);
+            scope.dirs.should.equal(dirInfo.dirs);
             scope.files.should.equal(dirInfo.files);
+            scope.fileNodes.should.eql(_.union(scope.dirs, scope.files));
         });
     })
 });

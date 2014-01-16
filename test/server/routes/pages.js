@@ -8,7 +8,7 @@ describe('routes/pages', function() {
             .get('/')
             .end(function(err, res) {
                 res.should.have.status(200);
-                res.text.should.include('<table class="table table-hover">');
+                res.text.should.include('<table class="table table-hover table-condensed">');
                 done();
             })
         })

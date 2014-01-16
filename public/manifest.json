@@ -8,6 +8,8 @@
 
             "/socket.io/socket.io.js",
 
+            "/js/lib/underscore-min.js",
+
             "/js/app.js",
             "/js/services/socketServices.js",
             "/js/controllers/filesCtrl.js"
