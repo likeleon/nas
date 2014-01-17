@@ -2,16 +2,27 @@ doctype html
 html(ng-app="nas")
   head
     title= title
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     != env.getManifestFiles("app")
   body
-    div(ng-controller="FilesCtrl")
-      div.navbar.navbar-inverse.navbar-fixed-top
-        div.container
-          div.navbar-header
-            a.navbar-brand(href="./")= title
-            a.navbar-text /{{path}}
-
+    div.navbar.navbar-default.navbar-fixed-top(role="navigation")
       div.container
+        div.navbar-header
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+            span.sr-only Toggle Navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="#")= title
+        div.navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li.active
+              a(href="#") Home
+            li
+              a(href="#about") About
+
+    div.container(ng-controller="FilesCtrl")
+      div.table-responsive
         table#files.table.table-hover
           thead
             tr
@@ -28,8 +39,8 @@ html(ng-app="nas")
               td(ng-switch-when="file") {{(node.size / 1024) | number:2}} KB
               td {{node.modifiedTime | date:'medium'}}
 
-        footer
-          ul.list-unstyled
-            li.pull-right
-              a(href="#top") Back to top
-          p Made by SungHo Kim. Contact him at <a href='mailto:likeleon@gmail.com'>likeleon@gmail.com</a>.
+      footer
+        ul.list-unstyled
+          li.pull-right
+            a(href="#top") Back to top
+        p Made by SungHo Kim. Contact him at <a href='mailto:likeleon@gmail.com'>likeleon@gmail.com</a>.
