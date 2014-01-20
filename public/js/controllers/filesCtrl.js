@@ -6,7 +6,10 @@ nas.controller("FilesCtrl", ['$scope', 'socket',
             $scope.path = dirInfo.path;
             $scope.dirs = dirInfo.dirs;
             $scope.files = dirInfo.files;
-            $scope.fileNodes = _.union($scope.dirs, $scope.files);
         });
+
+        $scope.fileNodes = function() {
+            return _.union($scope.dirs, $scope.files);
+        };
     }
 ]);

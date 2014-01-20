@@ -28,7 +28,7 @@ describe('Files controller', function() {
             scope.path.should.equal(dirInfo.path);
             scope.dirs.should.equal(dirInfo.dirs);
             scope.files.should.equal(dirInfo.files);
-            scope.fileNodes.should.eql(_.union(scope.dirs, scope.files));
+            scope.fileNodes().should.eql(_.union(scope.dirs, scope.files));
         });
     })
 });
