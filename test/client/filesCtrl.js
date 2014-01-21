@@ -18,17 +18,43 @@ describe('Files controller', function() {
         });
 
         it ('should expose received directories and files', function() {
-            var dirInfo = {
+            var files = {
                 path: 'foo/bar',
                 dirs: [{ name: "fixture" }],
                 files: [{ name: "a.txt", size: "100" }, { name: "b.txt", size: "200" }]
             };
-            socket.emit("dirInfo", dirInfo);
+            socket.emit("files", files);
 
-            scope.path.should.equal(dirInfo.path);
-            scope.dirs.should.equal(dirInfo.dirs);
-            scope.files.should.equal(dirInfo.files);
+            scope.path.should.equal(files.path);
+            scope.dirs.should.equal(files.dirs);
+            scope.files.should.equal(files.files);
             scope.fileNodes().should.eql(_.union(scope.dirs, scope.files));
+        });
+
+        describe('nodeClicked()', function() {
+            it ('with dirNode should changes directory', function() {
+                var receivedDir = null;
+
+                socket.on('change directory', function(dir) {
+                    receivedDir = dir;
+                }, function(dir){
+                    return { path: dir, dirs: [], files: [] };
+                });
+
+                scope.path = 'foo/bar';
+                scope.nodeClicked({
+                    type: 'directory',
+                    name: 'dir_1'
+                });
+                receivedDir.should.equal('foo/bar/dir_1');
+            });
+
+            it ('with fileNode has no effect', function() {
+                scope.nodeClicked({
+                    type: 'file',
+                    name: 'file_1'
+                });
+            });
         });
     })
 });

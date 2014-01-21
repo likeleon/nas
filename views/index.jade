@@ -30,7 +30,7 @@ html(ng-app="nas")
               th Size
               th Modified
           tbody
-            tr(ng-repeat="node in fileNodes()", ng-switch="node.type")
+            tr(ng-repeat="node in fileNodes()", ng-switch="node.type", ng-click="nodeClicked(node)")
               td
                 i.fa.fa-folder(ng-switch-when="directory")
                 i.fa.fa-file(ng-switch-when="file")

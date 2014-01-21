@@ -26,21 +26,21 @@ describe('socket', function () {
         nconf.set('basedir', oldBasedir);
     });
 
-    beforeEach(function () {
+    beforeEach(function() {
         client = io.connect('http://localhost:' + port, sockOpt);
     });
 
-    afterEach(function () {
+    afterEach(function() {
         if (client)
             client.disconnect();
     });
 
     describe('connect()', function() {
-        it('should return dirInfo', function (done) {
-            client.once('dirInfo', function (dirInfo) {
+        it('should return dirInfo', function(done) {
+            client.once('files', function(dirInfo) {
                 dirInfo.path.should.equal('');
 
-                var dirStat = fs.statSync(nconf.get('basedir'));
+                var dirStat = fs.statSync(path.join(nconf.get('basedir'), 'foo'));
                 var expectedDirs = [ {
                     "type": "directory",
                     "name": "foo",
@@ -63,11 +63,11 @@ describe('socket', function () {
     });
 
     describe('change directory', function() {
-        it('should return files with changing directory', function (done) {
-            client.emit('change directory', 'foo', function (dirInfo) {
-                dirInfo.path.should.equal('foo');
-                dirInfo.dirs.should.eql([]);
-                dirInfo.files.should.eql([]);
+        it('should return files with changing directory', function(done) {
+            client.emit('change directory', 'foo/bar', function(files) {
+                files.path.should.equal('foo/bar');
+                files.dirs.should.eql([]);
+                files.files[0].name.should.equal('bar.txt');
                 done();
             });
         });

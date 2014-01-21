@@ -8,7 +8,7 @@ module.exports.listen = function(server) {
     var baseDir = nconf.get('basedir');
     var io = socketio.listen(server);
 
-    var getDirInfo = function(dirPath) {
+    var getFiles = function(dirPath) {
         var directory = new Directory(dirPath);
 
         var dirs = _.map(directory.dirs(), function(dir) {
@@ -29,18 +29,18 @@ module.exports.listen = function(server) {
         });
 
         return {
-            path: path.relative(baseDir, dirPath),
+            path: path.relative(baseDir, dirPath).replace('\\', '/'),
             dirs: dirs,
             files: files
         };
     };
 
     io.sockets.on('connection', function(socket) {
-        socket.emit('dirInfo', getDirInfo(baseDir));
+        socket.emit('files', getFiles(baseDir));
 
         socket.on('change directory', function(dir, callback) {
             var newDir = path.join(baseDir, dir);
-            callback(getDirInfo(newDir));
+            callback(getFiles(newDir));
         });
     });
 
