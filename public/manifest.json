@@ -9,6 +9,7 @@
             "/socket.io/socket.io.js",
 
             "/js/lib/underscore-min.js",
+            "js/lib/angular-ui-router.min.js",
 
             "/js/app.js",
             "/js/services/socketServices.js",

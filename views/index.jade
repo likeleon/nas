@@ -2,44 +2,16 @@ doctype html
 html(ng-app="nas")
   head
     title= title
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    style.
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+        display: none !important;
+      }
+
     != env.getManifestFiles("app")
-  body
-    div.navbar.navbar-default.navbar-fixed-top(role="navigation")
-      div.container
-        div.navbar-header
-          button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
-            span.sr-only Toggle Navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href="#")= title
-        div.navbar-collapse.collapse
-          ul.nav.navbar-nav
-            li.active
-              a(href="#") Home
-            li
-              a(href="#about") About
 
-    div.container(ng-controller="FilesCtrl")
-      div.table-responsive
-        table#files.table.table-hover
-          thead
-            tr
-              th Name
-              th Size
-              th Modified
-          tbody
-            tr(ng-repeat="node in fileNodes()", ng-switch="node.type", ng-click="nodeClicked(node)")
-              td
-                i.fa.fa-folder(ng-switch-when="directory")
-                i.fa.fa-file(ng-switch-when="file")
-                span {{node.name}}
-              td(ng-switch-when="directory")
-              td(ng-switch-when="file") {{(node.size / 1024) | number:2}} KB
-              td {{node.modifiedTime | date:'medium'}}
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
-      footer
-        ul.list-unstyled
-          li.pull-right
-            a(href="#top") Back to top
+  body(ng-cloak)
+    include ./shared/header/header
+    include ./main/index
