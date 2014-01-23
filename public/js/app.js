@@ -9,7 +9,12 @@ nas.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     $stateProvider
         .state('files', {
             url: '/files',
-            templateUrl: 'partials/main.html'
+            templateUrl: 'partials/files.html'
+        })
+
+        .state('about', {
+            url: '/about',
+            templateUrl: 'partials/about.html'
         });
 }]);
 
