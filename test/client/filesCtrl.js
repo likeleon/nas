@@ -10,10 +10,12 @@ describe('Files controller', function() {
         var scope, ctrl, socket;
 
         beforeEach(function() {
-            inject(function($rootScope, $controller, $injector) {
+            inject(function($rootScope, $controller, $httpBackend, $injector) {
                 scope = $rootScope.$new();
                 socket = $injector.get('socket');
                 ctrl = $controller("FilesCtrl", {$scope: scope, socket: socket});
+
+                $httpBackend.whenGET('partials/files.html').respond({});
             })
         });
 

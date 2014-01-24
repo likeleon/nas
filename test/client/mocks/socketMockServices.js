@@ -10,25 +10,27 @@ angular.module("socketMockServices", []).
             on: function(eventName, dataCallback, emitDataCallback) {
                 if (!events[eventName])
                     events[eventName] = [];
+
                 events[eventName].push({
                     'dataCallback': dataCallback,
                     'emitDataCallback': emitDataCallback
                 });
             },
             emit: function(eventName, data, emitCallback) {
-                if (events[eventName]) {
-                    angular.forEach(events[eventName], function(event) {
-                        $rootScope.$apply(function() {
-                            event.dataCallback(data);
-                        });
+                if (!events[eventName])
+                    return;
 
-                        if (emitCallback) {
-                            event.emitDataCallback === 'undefined' ?
-                                emitCallback() :
-                                emitCallback(event.emitDataCallback(data))
-                        }
+                angular.forEach(events[eventName], function(event) {
+                    $rootScope.$apply(function() {
+                        event.dataCallback(data);
                     });
-                }
+
+                    if (emitCallback) {
+                        event.emitDataCallback === 'undefined' ?
+                            emitCallback() :
+                            emitCallback(event.emitDataCallback(data))
+                    }
+                });
             }
         };
     });

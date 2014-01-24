@@ -2,7 +2,8 @@
 
 var nas = angular.module('nas', ['ui.router', 'socketServices']);
 
-nas.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+nas.config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
         .otherwise('/files');
 
@@ -16,6 +17,12 @@ nas.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/about',
             templateUrl: 'partials/about.html'
         });
+}]);
+
+nas.run(['$rootScope', '$state', '$stateParams',
+    function($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
 }]);
 
 window.nas = nas;
