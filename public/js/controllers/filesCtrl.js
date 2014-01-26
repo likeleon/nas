@@ -1,9 +1,11 @@
 "use strict";
 
-nas.controller("FilesCtrl", ['$scope', 'socket',
-    function ($scope, socket) {
-        socket.on('files', function(files) {
-            _updateFiles(files);
+nas.controller("FilesCtrl", ['$scope', 'filesService',
+    function ($scope, filesService) {
+        filesService.onFiles(function(files) {
+            $scope.path = files.path;
+            $scope.dirs = files.dirs;
+            $scope.files = files.files;
         });
 
         $scope.fileNodes = function() {
@@ -12,17 +14,9 @@ nas.controller("FilesCtrl", ['$scope', 'socket',
 
         $scope.nodeClicked = function(node) {
             if (node.type === 'directory') {
-                var dir = $scope.path + '/' + node.name;
-                socket.emit('change directory', dir, function(files) {
-                    _updateFiles(files);
-                });
+                var path = $scope.path + '/' + node.name;
+                filesService.listFiles(path);
             }
         };
-
-        var _updateFiles = function(files) {
-            $scope.path = files.path;
-            $scope.dirs = files.dirs;
-            $scope.files = files.files;
-        }
     }
 ]);

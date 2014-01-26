@@ -12,7 +12,7 @@
             "js/lib/angular-ui-router.min.js",
 
             "/js/app.js",
-            "/js/services/socketServices.js",
+            "/js/services/filesServices.js",
             "/js/controllers/filesCtrl.js"
         ],
         "css": [

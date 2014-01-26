@@ -35,40 +35,46 @@ describe('socket', function () {
             client.disconnect();
     });
 
-    describe('connect()', function() {
-        it('should return dirInfo', function(done) {
-            client.once('files', function(dirInfo) {
-                dirInfo.path.should.equal('');
+    describe('list files', function() {
+        describe('with empty path string', function() {
+            it('should return files', function(done) {
+                client.once('files', function(files) {
+                    files.path.should.equal('');
 
-                var dirStat = fs.statSync(path.join(nconf.get('basedir'), 'foo'));
-                var expectedDirs = [ {
-                    "type": "directory",
-                    "name": "foo",
-                    "modifiedTime": dirStat.mtime.toISOString()
-                } ];
-                dirInfo.dirs.should.eql(expectedDirs);
+                    var dirStat = fs.statSync(path.join(nconf.get('basedir'), 'foo'));
+                    var expectedDirs = [ {
+                        "type": "directory",
+                        "name": "foo",
+                        "modifiedTime": dirStat.mtime.toISOString()
+                    } ];
+                    files.dirs.should.eql(expectedDirs);
 
-                var fileStat = fs.statSync(path.join(nconf.get('basedir'), "amazing.txt"));
-                var expectedFiles = [ {
-                    "type": "file",
-                    "name": "amazing.txt",
-                    "size": 8,
-                    "modifiedTime": fileStat.mtime.toISOString()
-                } ];
-                dirInfo.files.should.eql(expectedFiles);
+                    var fileStat = fs.statSync(path.join(nconf.get('basedir'), "amazing.txt"));
+                    var expectedFiles = [ {
+                        "type": "file",
+                        "name": "amazing.txt",
+                        "size": 8,
+                        "modifiedTime": fileStat.mtime.toISOString()
+                    } ];
+                    files.files.should.eql(expectedFiles);
 
-                done();
+                    done();
+                });
+
+                client.emit('list files', '');
             });
         });
-    });
 
-    describe('change directory', function() {
-        it('should return files with changing directory', function(done) {
-            client.emit('change directory', 'foo/bar', function(files) {
-                files.path.should.equal('foo/bar');
-                files.dirs.should.eql([]);
-                files.files[0].name.should.equal('bar.txt');
-                done();
+        describe('with path', function() {
+            it('should return files with changed path', function(done) {
+                client.once('files', function(files) {
+                    files.path.should.equal('foo/bar');
+                    files.dirs.should.eql([]);
+                    files.files[0].name.should.equal('bar.txt');
+                    done();
+                });
+
+                client.emit('list files', 'foo/bar');
             });
         });
     });

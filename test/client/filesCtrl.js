@@ -3,17 +3,17 @@
 describe('Files controller', function() {
     beforeEach(function() {
         module("nas");
-        module("socketMockServices");
+        module("filesMockServices");
     });
 
     describe('FilesCtrl', function() {
-        var scope, ctrl, socket;
+        var scope, ctrl, filesService;
 
         beforeEach(function() {
             inject(function($rootScope, $controller, $httpBackend, $injector) {
                 scope = $rootScope.$new();
-                socket = $injector.get('socket');
-                ctrl = $controller("FilesCtrl", {$scope: scope, socket: socket});
+                filesService = $injector.get('filesService');
+                ctrl = $controller("FilesCtrl", {$scope: scope, filesService: filesService});
 
                 $httpBackend.whenGET('partials/files.html').respond({});
             })
@@ -25,7 +25,7 @@ describe('Files controller', function() {
                 dirs: [{ name: "fixture" }],
                 files: [{ name: "a.txt", size: "100" }, { name: "b.txt", size: "200" }]
             };
-            socket.emit("files", files);
+            filesService.emitFiles(files);
 
             scope.path.should.equal(files.path);
             scope.dirs.should.equal(files.dirs);
@@ -35,12 +35,10 @@ describe('Files controller', function() {
 
         describe('nodeClicked()', function() {
             it ('with dirNode should changes directory', function() {
-                var receivedDir = null;
+                var receivedPath = null;
 
-                socket.on('change directory', function(dir) {
-                    receivedDir = dir;
-                }, function(dir){
-                    return { path: dir, dirs: [], files: [] };
+                filesService.onListFiles(function(path) {
+                    receivedPath = path;
                 });
 
                 scope.path = 'foo/bar';
@@ -48,7 +46,7 @@ describe('Files controller', function() {
                     type: 'directory',
                     name: 'dir_1'
                 });
-                receivedDir.should.equal('foo/bar/dir_1');
+                receivedPath.should.equal('foo/bar/dir_1');
             });
 
             it ('with fileNode has no effect', function() {
