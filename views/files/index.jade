@@ -1,5 +1,5 @@
 script(id="partials/files.html", type="text/ng-template")
-  .container(ng-controller="FilesCtrl")
+  div(ng-controller="FilesCtrl")
     div(style="margin-top:1em")
       ol.breadcrumb
         li(ng-repeat="part in pathParts", ng-class="{'active':$last}", ng-switch="$last")
