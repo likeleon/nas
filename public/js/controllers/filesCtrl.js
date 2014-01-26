@@ -14,8 +14,9 @@ nas.controller("FilesCtrl", ['$scope', 'filesService',
 
         $scope.nodeClicked = function(node) {
             if (node.type === 'directory') {
-                var path = $scope.path + '/' + node.name;
-                filesService.listFiles(path);
+                $scope.$state.go($scope.$state.current.name, {
+                    path: $scope.path ? $scope.path + '/' + node.name : node.name
+                });
             }
         };
     }

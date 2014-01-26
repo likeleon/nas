@@ -32,29 +32,5 @@ describe('Files controller', function() {
             scope.files.should.equal(files.files);
             scope.fileNodes().should.eql(_.union(scope.dirs, scope.files));
         });
-
-        describe('nodeClicked()', function() {
-            it ('with dirNode should changes directory', function() {
-                var receivedPath = null;
-
-                filesService.onListFiles(function(path) {
-                    receivedPath = path;
-                });
-
-                scope.path = 'foo/bar';
-                scope.nodeClicked({
-                    type: 'directory',
-                    name: 'dir_1'
-                });
-                receivedPath.should.equal('foo/bar/dir_1');
-            });
-
-            it ('with fileNode has no effect', function() {
-                scope.nodeClicked({
-                    type: 'file',
-                    name: 'file_1'
-                });
-            });
-        });
     })
 });

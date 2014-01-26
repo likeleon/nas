@@ -4,14 +4,15 @@ var nas = angular.module('nas', ['ui.router', 'filesServices']);
 
 nas.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
-        .otherwise('/files');
+        .otherwise('/files/');
 
     $stateProvider
         .state('files', {
-            url: '/files',
+            url: '/files/{path:.*}',
             templateUrl: 'partials/files.html',
-            onEnter: function(filesService) {
-                filesService.listFiles('');
+            onEnter: function(filesService, $stateParams) {
+                var path = $stateParams.path || '';
+                filesService.listFiles(path);
             }
         })
 
