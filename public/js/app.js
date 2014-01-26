@@ -8,12 +8,17 @@ nas.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
         .state('files', {
-            url: '/files/{path:.*}',
+            abstract: true,
+            url: '/files',
             templateUrl: 'partials/files.html',
+            controller: 'FilesCtrl'
+        })
+        .state('files.detail', {
+            url: '/{path:.*}',
             onEnter: function(filesService, $stateParams) {
                 var path = $stateParams.path || '';
                 filesService.listFiles(path);
-            }
+            },
         })
 
         .state('about', {
