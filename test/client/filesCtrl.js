@@ -30,7 +30,11 @@ describe('Files controller', function() {
             scope.path.should.equal(files.path);
             scope.dirs.should.equal(files.dirs);
             scope.files.should.equal(files.files);
-            scope.fileNodes().should.eql(_.union(scope.dirs, scope.files));
+            scope.fileNodes.should.eql(_.union(scope.dirs, scope.files));
+            scope.pathParts.should.eql([
+                { name: 'home', path: '' },
+                { name: 'foo', path: 'foo' },
+                { name: 'bar', path: 'foo/bar' }]);
         });
     })
 });

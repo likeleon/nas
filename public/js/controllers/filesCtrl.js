@@ -6,11 +6,18 @@ nas.controller("FilesCtrl", ['$scope', 'filesService',
             $scope.path = files.path;
             $scope.dirs = files.dirs;
             $scope.files = files.files;
-        });
+            $scope.fileNodes = _.union($scope.dirs, $scope.files);
 
-        $scope.fileNodes = function() {
-            return _.union($scope.dirs, $scope.files);
-        };
+            $scope.pathParts = [{name: 'home', path: ''}];
+            var partPath = '';
+            _.forEach($scope.path.split('/'), function(name) {
+                partPath += partPath ? '/' + name : name;
+                $scope.pathParts.push({
+                    name: name,
+                    path: partPath
+                });
+            });
+        });
 
         $scope.nodeClicked = function(node) {
             if (node.type === 'directory') {

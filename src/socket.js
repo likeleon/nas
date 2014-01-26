@@ -30,7 +30,7 @@ module.exports.listen = function(server) {
 
 
         socket.emit('files', {
-            path: path.relative(baseDir, dirPath).replace('\\', '/'),
+            path: path.relative(baseDir, dirPath).replace(/\\/g, '/'),
             dirs: dirs,
             files: files
         });

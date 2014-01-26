@@ -1,5 +1,11 @@
 script(id="partials/files.html", type="text/ng-template")
-  container(ng-controller="FilesCtrl")
+  .container(ng-controller="FilesCtrl")
+    div(style="margin-top:1em")
+      ol.breadcrumb
+        li(ng-repeat="part in pathParts", ng-class="{'active':$last}", ng-switch="$last")
+          a(ng-switch-when="false", ui-sref="files({path: part.path})") {{part.name}}
+          span(ng-switch-default) {{part.name}}
+
     div.table-responsive
       table#files.table.table-hover
         thead
@@ -8,7 +14,7 @@ script(id="partials/files.html", type="text/ng-template")
             th Size
             th Modified
         tbody
-          tr(ng-repeat="node in fileNodes()", ng-switch="node.type", ng-click="nodeClicked(node)")
+          tr(ng-repeat="node in fileNodes", ng-switch="node.type", ng-click="nodeClicked(node)")
             td
               i.fa.fa-folder(ng-switch-when="directory")
               i.fa.fa-file(ng-switch-when="file")
