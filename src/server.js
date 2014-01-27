@@ -41,6 +41,7 @@ if ('development' == app.get('env')) {
 
 // Custom directives
 app.use(require('./routes/pages').middleware);
+app.use(require('./routes/files').middleware);
 
 var server = exports.server = http.createServer(app);
 
