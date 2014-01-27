@@ -26,5 +26,9 @@ nas.controller("FilesCtrl", ['$scope', 'filesService',
                 });
             }
         };
+
+        $scope.momentFromNow = function(date) {
+            return moment(date).fromNow();
+        };
     }
 ]);
