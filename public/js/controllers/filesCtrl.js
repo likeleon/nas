@@ -19,20 +19,22 @@ nas.controller("FilesCtrl", ['$scope', '$window', 'filesService',
             });
         });
 
-        $scope.nodeClicked = function (node) {
-            switch (node.type) {
-                case 'directory':
-                    $scope.$state.go($scope.$state.current.name, {
-                        path: $scope.path ? $scope.path + '/' + node.name : node.name
-                    });
-                    break;
+        $scope.openDirectory = function (node) {
+            if (node.type !== 'directory')
+                return;
 
-                case 'file':
-                    var filePath = $scope.path ? $scope.path + '/' + node.name : node.name;
-                    $window.location.href = '/download/' + filePath;
-                    break;
-            }
+            $scope.$state.go($scope.$state.current.name, {
+                path: $scope.path ? $scope.path + '/' + node.name : node.name
+            });
         };
+
+        $scope.downloadFile = function (node) {
+            if (node.type !== 'file')
+                return;
+
+            var filePath = $scope.path ? $scope.path + '/' + node.name : node.name;
+            $window.location.href = '/download/' + filePath;
+        }
 
         $scope.momentFromNow = function (date) {
             return moment(date).fromNow();

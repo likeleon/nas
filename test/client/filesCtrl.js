@@ -47,10 +47,10 @@ describe('Files controller', function () {
             $httpBackend.flush();
         });
 
-        describe('nodeClicked() with fileNode', function () {
+        describe('downloadFile()', function () {
             it('should download file', function () {
                 $window.location.href.should.equal('');
-                scope.nodeClicked(files.files[0]);
+                scope.downloadFile(files.files[0]);
                 $window.location.href.should.equal('/download/foo/bar/a.txt');
                 $httpBackend.flush();
             })
