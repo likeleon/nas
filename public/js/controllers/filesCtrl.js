@@ -2,7 +2,7 @@
 
 nas.controller("FilesCtrl", ['$scope', '$window', 'filesService',
     function ($scope, $window, filesService) {
-        filesService.onFiles(function(files) {
+        filesService.onFiles(function (files) {
             $scope.path = files.path;
             $scope.dirs = files.dirs;
             $scope.files = files.files;
@@ -10,7 +10,7 @@ nas.controller("FilesCtrl", ['$scope', '$window', 'filesService',
 
             $scope.pathParts = [{name: 'home', path: ''}];
             var partPath = '';
-            _.forEach($scope.path.split('/'), function(name) {
+            _.forEach($scope.path.split('/'), function (name) {
                 partPath += partPath ? '/' + name : name;
                 $scope.pathParts.push({
                     name: name,
@@ -19,7 +19,7 @@ nas.controller("FilesCtrl", ['$scope', '$window', 'filesService',
             });
         });
 
-        $scope.nodeClicked = function(node) {
+        $scope.nodeClicked = function (node) {
             switch (node.type) {
                 case 'directory':
                     $scope.$state.go($scope.$state.current.name, {
@@ -34,7 +34,7 @@ nas.controller("FilesCtrl", ['$scope', '$window', 'filesService',
             }
         };
 
-        $scope.momentFromNow = function(date) {
+        $scope.momentFromNow = function (date) {
             return moment(date).fromNow();
         };
     }

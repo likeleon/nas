@@ -16,29 +16,29 @@ describe('socket', function () {
         'force new connection': true
     };
 
-    before(function() {
+    before(function () {
         oldBasedir = nconf.get('basedir');
         nconf.set('basedir', path.join(__dirname, './fixtures'));
         server.listen(port);
     });
 
-    after(function() {
+    after(function () {
         nconf.set('basedir', oldBasedir);
     });
 
-    beforeEach(function() {
+    beforeEach(function () {
         client = io.connect('http://localhost:' + port, sockOpt);
     });
 
-    afterEach(function() {
+    afterEach(function () {
         if (client)
             client.disconnect();
     });
 
-    describe('list files', function() {
-        describe('with empty path string', function() {
-            it('should return files', function(done) {
-                client.once('files', function(files) {
+    describe('list files', function () {
+        describe('with empty path string', function () {
+            it('should return files', function (done) {
+                client.once('files', function (files) {
                     files.path.should.equal('');
 
                     var dirStat = fs.statSync(path.join(nconf.get('basedir'), 'foo'));
@@ -65,9 +65,9 @@ describe('socket', function () {
             });
         });
 
-        describe('with path', function() {
-            it('should return files with changed path', function(done) {
-                client.once('files', function(files) {
+        describe('with path', function () {
+            it('should return files with changed path', function (done) {
+                client.once('files', function (files) {
                     files.path.should.equal('foo/bar');
                     files.dirs.should.eql([]);
                     files.files[0].name.should.equal('bar.txt');

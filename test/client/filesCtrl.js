@@ -1,16 +1,16 @@
 "use strict";
 
-describe('Files controller', function() {
-    beforeEach(function() {
+describe('Files controller', function () {
+    beforeEach(function () {
         module("nas");
         module("filesMockServices");
     });
 
-    describe('FilesCtrl', function() {
+    describe('FilesCtrl', function () {
         var scope, ctrl, $httpBackend, filesService, files, $window;
 
-        beforeEach(function() {
-            inject(function($rootScope, $controller, $injector) {
+        beforeEach(function () {
+            inject(function ($rootScope, $controller, $injector) {
                 $httpBackend = $injector.get('$httpBackend');
                 $httpBackend.whenGET('partials/files.html').respond({});
 
@@ -30,12 +30,12 @@ describe('Files controller', function() {
             })
         });
 
-        afterEach(function() {
+        afterEach(function () {
             $httpBackend.verifyNoOutstandingExpectation();
             $httpBackend.verifyNoOutstandingRequest();
         });
 
-        it ('should expose received directories and files', function() {
+        it ('should expose received directories and files', function () {
             scope.path.should.equal(files.path);
             scope.dirs.should.equal(files.dirs);
             scope.files.should.equal(files.files);
@@ -47,8 +47,8 @@ describe('Files controller', function() {
             $httpBackend.flush();
         });
 
-        describe('nodeClicked() with fileNode', function() {
-            it('should download file', function() {
+        describe('nodeClicked() with fileNode', function () {
+            it('should download file', function () {
                 $window.location.href.should.equal('');
                 scope.nodeClicked(files.files[0]);
                 $window.location.href.should.equal('/download/foo/bar/a.txt');

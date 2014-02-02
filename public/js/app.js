@@ -2,7 +2,7 @@
 
 var nas = angular.module('nas', ['ui.router', 'filesServices']);
 
-nas.config(function($stateProvider, $urlRouterProvider) {
+nas.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
         .otherwise('/files/');
 
@@ -15,10 +15,10 @@ nas.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('files.detail', {
             url: '/{path:.*}',
-            onEnter: function(filesService, $stateParams) {
+            onEnter: function (filesService, $stateParams) {
                 var path = $stateParams.path || '';
                 filesService.listFiles(path);
-            },
+            }
         })
 
         .state('about', {
@@ -27,7 +27,7 @@ nas.config(function($stateProvider, $urlRouterProvider) {
         });
 });
 
-nas.run(function($rootScope, $state, $stateParams) {
+nas.run(function ($rootScope, $state, $stateParams) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 });

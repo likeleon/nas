@@ -4,7 +4,7 @@ var path = require('path');
 var fs = require('fs');
 
 module.exports = File = cls.Class.extend({
-    init: function(path_) {
+    init: function (path_) {
         if (!path_ || !utils.isAbsolute(path_))
             throw new Error('File() requires an absolute path');
 
