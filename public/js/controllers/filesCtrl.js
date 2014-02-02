@@ -1,7 +1,7 @@
 "use strict";
 
-nas.controller("FilesCtrl", ['$scope', 'filesService',
-    function ($scope, filesService) {
+nas.controller("FilesCtrl", ['$scope', '$window', 'filesService',
+    function ($scope, $window, filesService) {
         filesService.onFiles(function(files) {
             $scope.path = files.path;
             $scope.dirs = files.dirs;
@@ -20,10 +20,17 @@ nas.controller("FilesCtrl", ['$scope', 'filesService',
         });
 
         $scope.nodeClicked = function(node) {
-            if (node.type === 'directory') {
-                $scope.$state.go($scope.$state.current.name, {
-                    path: $scope.path ? $scope.path + '/' + node.name : node.name
-                });
+            switch (node.type) {
+                case 'directory':
+                    $scope.$state.go($scope.$state.current.name, {
+                        path: $scope.path ? $scope.path + '/' + node.name : node.name
+                    });
+                    break;
+
+                case 'file':
+                    var filePath = $scope.path ? $scope.path + '/' + node.name : node.name;
+                    $window.location.href = '/download/' + filePath;
+                    break;
             }
         };
 

@@ -3,7 +3,7 @@ var app = require('../../../src/server');
 
 describe('routes/pages', function() {
     describe('GET /', function() {
-        it('should display directory table', function(done) {
+        it('should display files table', function(done) {
             request(app.server)
             .get('/')
             .end(function(err, res) {
@@ -12,5 +12,5 @@ describe('routes/pages', function() {
                 done();
             })
         })
-    });
+     });
 });
