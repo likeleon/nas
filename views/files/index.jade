@@ -5,19 +5,31 @@ script(id="partials/files.html", type="text/ng-template")
         a(ng-switch-when="false", ui-sref="files.detail({path: part.path})") {{part.name}}
         span(ng-switch-default) {{part.name}}
 
-  div.table-responsive
-    table#files.table.table-hover
-      thead
-        tr
-          th Name
-          th Size
-          th Modified
-      tbody
-        tr(ng-repeat="node in fileNodes", ng-switch="node.type", ng-click="nodeClicked(node)")
-          td
-            i.fa.fa-folder(ng-switch-when="directory")
-            i.fa.fa-file(ng-switch-when="file")
-            span {{node.name}}
-          td(ng-switch-when="directory")
-          td(ng-switch-when="file") {{(node.size / 1024) | number:2}} KB
-          td {{ momentFromNow(node.modifiedTime) }}
+    div.table-responsive
+      table.table.table-hover.filetable
+        thead
+          tr
+            th Name
+            th
+            th Size
+            th Modified
+        tbody
+          tr(ng-repeat="node in fileNodes", ng-switch="node.type", ng-click="openDirectory(node)")
+            td(ng-switch-when="directory")
+              i.fa.fa-folder
+              span {{node.name}}
+            td(ng-switch-when="file")
+              i.fa.fa-file
+              span {{node.name}}
+            td(ng-switch-when="directory")
+            td(ng-switch-when="file")
+              div.btn-group
+                button.btn.btn-default.btn-xs.dropdown-toggle(type="button", data-toggle="dropdown")
+                  | Actions
+                  span.caret
+                ul.dropdown-menu(role="menu")
+                  li
+                    a(href, ng-click="downloadFile(node)") Download
+            td(ng-switch-when="directory")
+            td(ng-switch-when="file") {{(node.size / 1024) | number:2}} KB
+            td {{ momentFromNow(node.modifiedTime) }}

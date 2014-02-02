@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
     config.set({
         basePath: '../../',
 
@@ -28,7 +28,7 @@ module.exports = function(config) {
 
         browsers: ['Chrome'],
 
-        captureTimeout: 5000,
+        captureTimeout: 10000,
 
         singleRun: true,
 

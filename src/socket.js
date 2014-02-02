@@ -1,17 +1,19 @@
+'use strict';
+
 var socketio = require('socket.io');
 var Directory = require('./models/directory');
 var path = require('path');
 var _ = require('./lib/underscore-min.js');
 var nconf = require('nconf');
 
-module.exports.listen = function(server) {
+module.exports.listen = function (server) {
     var baseDir = nconf.get('basedir');
     var io = socketio.listen(server);
 
-    var emitFiles = function(socket, dirPath) {
+    var emitFiles = function (socket, dirPath) {
         var directory = new Directory(dirPath);
 
-        var dirs = _.map(directory.dirs(), function(dir) {
+        var dirs = _.map(directory.dirs(), function (dir) {
             return {
                 "type": "directory",
                 "name": dir.name,
@@ -19,7 +21,7 @@ module.exports.listen = function(server) {
             }
         });
 
-        var files = _.map(directory.files(), function(file) {
+        var files = _.map(directory.files(), function (file) {
             return {
                 "type": "file",
                 "name": file.name,
@@ -36,8 +38,8 @@ module.exports.listen = function(server) {
         });
     };
 
-    io.sockets.on('connection', function(socket) {
-        socket.on('list files', function(dirPath) {
+    io.sockets.on('connection', function (socket) {
+        socket.on('list files', function (dirPath) {
             emitFiles(socket, path.join(baseDir, dirPath));
         })
     });
