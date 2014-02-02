@@ -6,7 +6,7 @@ var nconf = require('nconf');
 var path = require('path');
 var fs = require('fs');
 
-router.get('/files/:file(*)', function(req, res, next) {
+router.get('/download/:file(*)', function(req, res, next) {
     var file = req.params.file;
     var filePath = path.join(nconf.get('basedir'), file);
 
