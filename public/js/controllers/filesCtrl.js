@@ -1,7 +1,7 @@
 "use strict";
 
-nas.controller("FilesCtrl", ['$scope', '$window', 'filesService', 'notificationService',
-  function ($scope, $window, filesService, notificationService) {
+nas.controller("FilesCtrl", ['$scope', '$window', 'filesService',
+  function ($scope, $window, filesService) {
     filesService.onFiles(function (files) {
       $scope.path = files.path;
       $scope.dirs = files.dirs;
@@ -31,15 +31,12 @@ nas.controller("FilesCtrl", ['$scope', '$window', 'filesService', 'notificationS
     };
 
     $scope.downloadFile = function (node) {
-      notificationService.error('test message');
-      return;
-
       if (node.type !== 'file')
         return;
 
       var filePath = $scope.path ? $scope.path + '/' + node.name : node.name;
       $window.location.href = '/download/' + filePath;
-    }
+    };
 
     $scope.momentFromNow = function (date) {
       return moment(date).fromNow();

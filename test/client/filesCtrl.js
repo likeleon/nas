@@ -1,6 +1,6 @@
 "use strict";
 
-describe('Files controller', function () {
+describe('FilesCtrl', function () {
   beforeEach(function () {
     module("nas");
     module("filesMockServices");
