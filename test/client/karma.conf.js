@@ -1,42 +1,42 @@
 module.exports = function (config) {
-    config.set({
-        basePath: '../../',
+  config.set({
+    basePath: '../../',
 
-        frameworks: ['mocha'],
+    frameworks: ['mocha'],
 
-        files: [
-            'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js',
-            'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js',
-            'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-mocks.js',
-            'public/js/*.js',
-            'public/js/**/*.js',
-            'test/client/**/*.js',
-            'test/client/*.js'
-        ],
+    files: [
+      'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js',
+      'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js',
+      'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-mocks.js',
+      'public/js/*.js',
+      'public/js/**/*.js',
+      'test/client/**/*.js',
+      'test/client/*.js'
+    ],
 
-        exclude: [
-            'test/client/e2e/*.js'
-        ],
+    exclude: [
+      'test/client/e2e/*.js'
+    ],
 
-        port: 9876,
+    port: 9876,
 
-        colors: true,
+    colors: true,
 
-        logLevel: config.LOG_INFO,
+    logLevel: config.LOG_INFO,
 
-        autoWatch: true,
+    autoWatch: true,
 
-        browsers: ['Chrome'],
+    browsers: ['Chrome'],
 
-        captureTimeout: 10000,
+    captureTimeout: 10000,
 
-        singleRun: true,
+    singleRun: true,
 
-        reportSlowerThan: 500,
+    reportSlowerThan: 500,
 
-        plugins: [
-            'karma-mocha',
-            'karma-chrome-launcher'
-        ]
-    });
+    plugins: [
+      'karma-mocha',
+      'karma-chrome-launcher'
+    ]
+  });
 };

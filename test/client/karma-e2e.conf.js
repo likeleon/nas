@@ -1,31 +1,31 @@
 module.exports = function (config) {
-    config.set({
-        basePath: '../../',
+  config.set({
+    basePath: '../../',
 
-        frameworks: ['ng-scenario'],
+    frameworks: ['ng-scenario'],
 
-        files: [
-            'public/js/*.js',
-            'public/js/**/*.js',
-            'test/client/e2e/*.js'
-        ],
+    files: [
+      'public/js/*.js',
+      'public/js/**/*.js',
+      'test/client/e2e/*.js'
+    ],
 
-        autoWatch: false,
+    autoWatch: false,
 
-        browsers: ['Chrome'],
+    browsers: ['Chrome'],
 
-        singleRun: true,
+    singleRun: true,
 
-        urlRoot: '/nas_e2e/',
+    urlRoot: '/nas_e2e/',
 
-        proxies: {
-            '/' : 'http://localhost:3000'
-        },
+    proxies: {
+      '/': 'http://localhost:3000'
+    },
 
-        plugins: [
-            'karma-chrome-launcher',
-            'karma-jasmine',
-            'karma-ng-scenario'
-        ]
-    });
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-jasmine',
+      'karma-ng-scenario'
+    ]
+  });
 };

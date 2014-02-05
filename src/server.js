@@ -36,7 +36,7 @@ app.use(require('less-middleware')({ src: path.join(__dirname, '/../public') }))
 app.use(express.static(path.join(__dirname, '/../public')));
 
 if ('development' == app.get('env')) {
-    app.use(express.errorHandler());
+  app.use(express.errorHandler());
 }
 
 // Custom directives
@@ -49,8 +49,8 @@ var server = exports.server = http.createServer(app);
 /**
  * Start server
  */
-server.listen(app.get('port'), function (){
-    console.log('Express server listening on port ' + app.get('port'));
+server.listen(app.get('port'), function () {
+  console.log('Express server listening on port ' + app.get('port'));
 });
 
 // start socket.io server
