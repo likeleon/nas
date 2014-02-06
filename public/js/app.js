@@ -1,6 +1,6 @@
 "use strict";
 
-var nas = angular.module('nas', ['ui.router', 'filesServices', 'notificationServices']);
+var nas = angular.module('nas', ['ui.router', 'ui.bootstrap', 'filesServices', 'notificationServices']);
 
 nas.config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider

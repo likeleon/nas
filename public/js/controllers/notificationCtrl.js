@@ -11,5 +11,9 @@ nas.controller('NotificationCtrl', ['$scope',
     $scope.closeAlert = function (index) {
       $scope.alerts.splice(index, 1);
     };
+
+    $scope.addAlert = function () {
+      $scope.$emit('error', 'Oh snap! Change a few things up and try submitting again.');
+    };
   }
 ]);
