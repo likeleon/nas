@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var nas = angular.module('nas', ['ui.router', 'ui.bootstrap', 'filesServices', 'notificationServices']);
 

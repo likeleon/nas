@@ -1,0 +1,19 @@
+extends ./layout
+
+block vars
+  - var layoutEnv = env
+
+block title
+  title= title
+
+block content
+  div(ng-app='nas')
+    .container(ng-controller='AuthCtrl')
+      form.form-signin(ng-submit='auth()', method='POST')
+        h2.form-signin-heading Please sign in
+        input.form-control(type='email', ng-model='loginEmail', placeholder='Email address', required, autofocus)
+        input.form-control(type='password', ng-model='loginPassword', placeholder='Password', required)
+        label.checkbox
+          input(type='checkbox', ng-click='rememberMe = !rememberMe')
+          | Remeber me
+        button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in

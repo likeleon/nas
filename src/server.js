@@ -40,6 +40,7 @@ if ('development' == app.get('env')) {
 }
 
 // Custom directives
+app.use(require('./routes/auth').middleware);
 app.use(require('./routes/pages').middleware);
 app.use(require('./routes/download').middleware);
 
