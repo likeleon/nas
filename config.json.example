@@ -1,4 +1,6 @@
 {
-    "port": 3000,
-    "basedir": "your base directory here"
+  "port": 3000,
+  "basedir": "your base directory here",
+  "admin_email": "you@your.com",
+  "admin_password": "your_password"
 }

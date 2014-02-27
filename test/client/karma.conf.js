@@ -8,6 +8,7 @@ module.exports = function (config) {
       'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js',
       'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js',
       'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-mocks.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.9.0/ui-bootstrap-tpls.js',
       'public/js/*.js',
       'public/js/**/*.js',
       'test/client/**/*.js',
@@ -15,6 +16,7 @@ module.exports = function (config) {
     ],
 
     exclude: [
+      'public/js/static.js',
       'test/client/e2e/*.js'
     ],
 

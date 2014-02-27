@@ -16,6 +16,8 @@ module.exports.setupConfig = function () {
     .file('user', path.join(path.resolve(__dirname, '../config.json')))
     .defaults({
       'basedir': process.cwd(),
-      'port': 3000
+      'port': 3000,
+      'admin_email': '',
+      'admin_password': ''
     });
 };

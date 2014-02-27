@@ -5,8 +5,8 @@ var router = new express.Router();
 var middleware = require('../middleware');
 
 router.get('/', middleware.locals, function (req, res) {
-//  if (!req.session || !req.session.userId)
-//    return res.redirect('/static/front');
+  if (!req.session || !req.session.userId)
+    return res.redirect('/static/front');
 
   return res.render('index', {
     title: 'nas',
