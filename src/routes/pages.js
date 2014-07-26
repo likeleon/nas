@@ -3,15 +3,25 @@
 var express = require('express');
 var router = new express.Router();
 var middleware = require('../middleware');
+var User = require('../models/user').model;
 
 router.get('/', middleware.locals, function (req, res) {
+  User.count({'auth.admin': true}, function (err, count) {
+    if (err) {
+      res.json(500, {err:err});
+    }
 
-  if (!req.session || !req.session.userId)
-    return res.redirect('/static/front');
+    if (count <= 0) {
+      return res.redirect('/create-admin');
+    }
 
-  return res.render('index', {
-    title: 'nas',
-    env: res.locals.nas
+    if (!req.session || !req.session.userId)
+      return res.redirect('/static/front');
+
+    return res.render('index', {
+      title: 'nas',
+      env: res.locals.nas
+    });
   });
 });
 

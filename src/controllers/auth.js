@@ -6,10 +6,14 @@ var async = require('async');
 var User = require('../models/user').model;
 var utils = require('../utils');
 
-api.registerUser = function (req, res, next) {
-  var email = req.body.email, password = req.body.password, confirmPassword = req.body.confirmPassword;
-  if (!(email && password)) {
-    return res.json(401, {err: ":email, :password, :confirmPassword required"});
+api.registerUser = function (req, res) {
+  var email = req.body.email;
+  var password = req.body.password;
+  var confirmPassword = req.body.confirmPassword;
+  var admin = req.body.admin;
+
+  if (!email || !password || admin === undefined) {
+    return res.json(401, {err: ":email, :password, :confirmPassword, :admin required"});
   }
   if (password !== confirmPassword) {
     return res.json(401, {err: ":password and :confirmPassword mismatch"});
@@ -21,6 +25,17 @@ api.registerUser = function (req, res, next) {
 
   async.waterfall([
     function (cb) {
+      if (admin) {
+        User.findOne({'auth.admin': true}, cb);
+      } else {
+        cb (null, null);
+      }
+    },
+    function (found, cb) {
+      if (found) {
+        return cb('Admin already exists');
+      }
+
       User.findOne({'auth.email': email}, cb);
     },
     function (found, cb) {
@@ -34,7 +49,7 @@ api.registerUser = function (req, res, next) {
           email: email,
           salt: salt,
           hashed_password: utils.encryptPassword(password, salt),
-          admin: false,
+          admin: admin,
           timestamps: {
             created: +new Date(),
             loggedIn: +new Date()
