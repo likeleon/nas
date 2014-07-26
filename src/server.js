@@ -15,6 +15,16 @@ var nconf = require('nconf');
  */
 require('./utils').setupConfig();
 
+/**
+ * MongoDB configuration
+ */
+var mongoose = require('mongoose');
+mongoose.connect(nconf.get('node_db_uri'), { auto_reconnect:true }, function (err) {
+  if (err) {
+    throw err;
+  }
+  console.info('Connected with Mongoose');
+});
 
 /**
  * Server configuration

@@ -11,6 +11,7 @@ var UserSchema = new Schema({
   },
   auth : {
     email: String,
+    salt: String,
     hashed_password: String,
     admin: Boolean,
     timestamps: {
@@ -18,7 +19,7 @@ var UserSchema = new Schema({
         type: Date,
         'default': Date.now
       },
-      loggedin: {
+      loggedIn: {
         type: Date,
         'default': Date.now
       }
