@@ -9,6 +9,19 @@ var baseUrl = 'http://localhost:' + app.server.address().port;
 
 describe('routes/pages', function () {
 
+  describe('Without at least one administrator', function (done) {
+    describe('GET /', function () {
+      it ('should redirect to /create-admin', function (done) {
+        request
+          .get(baseUrl + '/')
+          .end(function (err, res) {
+            res.redirects.should.be.eql([baseUrl + '/create-admin']);
+            done();
+          })
+      })
+    });
+  });
+
   describe('Without authentication', function () {
     describe('GET /', function () {
       it ('should redirect to /static/front', function (done) {
