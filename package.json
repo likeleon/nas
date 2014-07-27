@@ -8,7 +8,9 @@
     "less-middleware": "~0.1.14",
     "socket.io": "~0.9.16",
     "less": "~1.6.1",
-    "nconf": "~0.6.9"
+    "nconf": "~0.6.9",
+    "async": "~0.9.0",
+    "validator": "~3.16.1"
   },
   "private": true,
   "scripts": {
@@ -31,6 +33,9 @@
     "karma": "~0.10.9",
     "karma-mocha": "~0.1.1",
     "karma-ng-scenario": "~0.1.0",
-    "superagent": "~0.16.0"
+    "superagent": "~0.16.0",
+    "karma-chai-plugins": "~0.2.1",
+    "chai": "~1.9.1",
+    "karma-chai": "~0.1.0"
   }
 }

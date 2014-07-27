@@ -23,7 +23,8 @@ nas.controller("AuthCtrl", ['$scope', '$http', '$window',
       $http.post('/api/user/auth', data)
         .success(function (data, status, headers, config) {
           $window.location.href = '/';
-        }).error(errorAlert);
+        })
+        .error(errorAlert);
     };
   }
 ]);

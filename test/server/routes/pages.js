@@ -36,7 +36,7 @@ describe('routes/pages', function () {
           confirmPassword: randomId,
           admin: true
         })
-        .end(function (err) {
+        .end(function (err, res) {
           err ? done(err) : done();
         })
     });

@@ -2,7 +2,7 @@ module.exports = function (config) {
   config.set({
     basePath: '../../',
 
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai', 'chai-as-promised', 'sinon-chai'],
 
     files: [
       'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js',
@@ -38,7 +38,9 @@ module.exports = function (config) {
 
     plugins: [
       'karma-mocha',
-      'karma-chrome-launcher'
+      'karma-chrome-launcher',
+      'karma-chai',
+      'karma-chai-plugins'
     ]
   });
 };
