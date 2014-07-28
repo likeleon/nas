@@ -1,0 +1,14 @@
+extends ./layout
+block vars
+  - var layoutEnv = env
+block title
+  title= title
+block content
+  div(ng-app='nas')
+    .container
+      form.form-signin(ng-controller='AuthCtrl', ng-submit='createAdmin()', method='POST', name='registrationForm')
+        h2.form-signin-heading Create administrator
+        input.form-control(type='email', ng-model='registerVals.email', placeholder='Email address', required, autofocus)
+        input.form-control(type='password', ng-model='registerVals.password', placeholder='Password', required)
+        input.form-control(type='password', ng-model='registerVals.confirmPassword', placeholder='Repeat password', required)
+        button.btn.btn-lg.btn-primary.btn-block(type='submit') Create

@@ -12,6 +12,7 @@ describe('AuthCtrl', function () {
       $httpBackend.whenGET('partials/files.html').respond({});
 
       scope = $rootScope.$new();
+      scope.registrationForm = {};
       $window = {
         location: { href: '' },
         alert: sinon.spy()
@@ -22,6 +23,14 @@ describe('AuthCtrl', function () {
         $window: $window
       });
     })
+  });
+
+  it('should create admin with valid email / pass', function () {
+    $httpBackend.expectPOST('/api/user/register').respond({id: 'abc', token: 'abc'});
+    scope.registrationForm.$invalid = false;
+    scope.createAdmin();
+    $httpBackend.flush();
+    sinon.assert.notCalled($window.alert);
   });
 
   it('should log in users with correct email / pass', function () {

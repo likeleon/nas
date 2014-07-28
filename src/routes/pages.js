@@ -12,7 +12,7 @@ router.get('/', middleware.locals, function (req, res) {
     }
 
     if (count <= 0) {
-      return res.redirect('/create-admin');
+      return res.redirect('/static/create-admin');
     }
 
     if (!req.session || !req.session.userId)
@@ -22,6 +22,13 @@ router.get('/', middleware.locals, function (req, res) {
       title: 'nas',
       env: res.locals.nas
     });
+  });
+});
+
+router.get('/static/create-admin', middleware.locals, function (req, res) {
+  return res.render('static/create-admin', {
+    title: 'nas',
+    env: res.locals.nas
   });
 });
 

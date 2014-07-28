@@ -13,11 +13,11 @@ describe('routes/pages', function () {
 
   describe('Without at least one administrator', function () {
     describe('GET /', function () {
-      it ('should redirect to /create-admin', function (done) {
+      it ('should redirect to /static/create-admin', function (done) {
         request
           .get(baseUrl + '/')
           .end(function (err, res) {
-            res.redirects.should.be.eql([baseUrl + '/create-admin']);
+            res.redirects.should.be.eql([baseUrl + '/static/create-admin']);
             done();
           })
       })
