@@ -25,12 +25,22 @@ describe('AuthCtrl', function () {
     })
   });
 
-  it('should create admin with valid email / pass', function () {
+  it('should create a new admin with valid email / pass', function () {
     $httpBackend.expectPOST('/api/user/register').respond({id: 'abc', token: 'abc'});
     scope.registrationForm.$invalid = false;
     scope.createAdmin();
     $httpBackend.flush();
     sinon.assert.notCalled($window.alert);
+    $window.location.href.should.equal('/');
+  });
+
+  it('should register a new user with valid email / pass', function () {
+    $httpBackend.expectPOST('/api/user/register').respond({id: 'abc', token: 'abc'});
+    scope.registrationForm.$invalid = false;
+    scope.register();
+    $httpBackend.flush();
+    sinon.assert.notCalled($window.alert);
+    $window.location.href.should.equal('/');
   });
 
   it('should log in users with correct email / pass', function () {
@@ -38,6 +48,7 @@ describe('AuthCtrl', function () {
     scope.auth();
     $httpBackend.flush();
     sinon.assert.notCalled($window.alert);
+    $window.location.href.should.equal('/');
   });
 
   it('should not log in users with incorrect email / pass', function () {

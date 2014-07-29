@@ -1,12 +1,7 @@
 var request = require('superagent');
 var utils = require('../../src/utils.js');
-
-var nconf = require('nconf');
-nconf.set('node_db_uri', 'mongodb://localhost/nas');
-
 var app = require('../../src/server');
 var baseUrl = 'http://localhost:' + app.server.address().port;
-
 var User = require('../../src/models/user').model;
 
 describe('rest-api', function () {

@@ -2,10 +2,6 @@ var request = require('superagent');
 var utils = require('../../../src/utils.js');
 var User = require('../../../src/models/user').model;
 
-var nconf = require('nconf');
-nconf.set('admin_email', 'me@test.com');
-nconf.set('admin_password', '1234');
-
 var app = require('../../../src/server');
 var baseUrl = 'http://localhost:' + app.server.address().port;
 
@@ -25,19 +21,24 @@ describe('routes/pages', function () {
   });
 
   describe('With admin registered', function () {
+    var adminEmail, adminPassword;
+
     before(function (done) {
       var randomId = utils.uuid();
+      adminEmail = randomId + "@gmail.com";
+      adminPassword = randomId;
+
       request
         .post(baseUrl + '/api/user/register')
         .set('Accept', 'application/json')
         .send({
-          email: randomId + "@gmail.com",
-          password: randomId,
-          confirmPassword: randomId,
+          email: adminEmail,
+          password: adminPassword,
+          confirmPassword: adminPassword,
           admin: true
         })
         .end(function (err, res) {
-          err ? done(err) : done();
+          (err) ? done(err) : done();
         })
     });
 
@@ -61,14 +62,16 @@ describe('routes/pages', function () {
     describe('With authentication', function () {
       var admin = request.agent();
 
-      before(function () {
+      before(function (done) {
         admin
           .post(baseUrl + '/api/user/auth')
           .send({
-            email: nconf.get('admin_email'),
-            password: nconf.get('admin_password')
+            email: adminEmail,
+            password: adminPassword
           })
-          .end()
+          .end(function (err, res) {
+            err ? done(err) : done();
+          })
       });
 
       describe('GET /', function () {

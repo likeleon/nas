@@ -18,8 +18,6 @@ describe('utils.setupConfig()', function () {
     utils.setupConfig();
     nconf.get('port').should.be.equal(3000);
     nconf.get('basedir').should.be.equal(process.cwd());
-    nconf.get('admin_email').should.be.equal('');
-    nconf.get('admin_password').should.be.equal('');
     nconf.get('node_db_uri').should.be.equal('mongodb://localhost/nas');
   });
 });

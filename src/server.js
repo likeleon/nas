@@ -19,7 +19,8 @@ require('./utils').setupConfig();
  * MongoDB configuration
  */
 var mongoose = require('mongoose');
-mongoose.connect(nconf.get('node_db_uri'), { auto_reconnect:true }, function (err) {
+var node_db_uri = (!module.parent)? nconf.get('node_db_uri') : 'mongodb://localhost/unit-test';
+mongoose.connect(node_db_uri, { auto_reconnect:true }, function (err) {
   if (err) {
     throw err;
   }

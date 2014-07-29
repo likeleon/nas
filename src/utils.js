@@ -18,8 +18,6 @@ module.exports.setupConfig = function () {
     .defaults({
       'basedir': process.cwd(),
       'port': 3000,
-      'admin_email': '',
-      'admin_password': '',
       'node_db_uri': 'mongodb://localhost/nas'
     });
 };

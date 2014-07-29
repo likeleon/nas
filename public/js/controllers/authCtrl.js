@@ -26,8 +26,8 @@ nas.controller("AuthCtrl", ['$scope', '$http', '$window',
         password: $scope.loginPassword
       };
 
-      $http.post('/api/user/auth', data).
-        success(function (data, status, headers, config) {
+      $http.post('/api/user/auth', data)
+        .success(function (data, status, headers, config) {
           $window.location.href = '/';
         })
         .error(errorAlert);
@@ -35,13 +35,16 @@ nas.controller("AuthCtrl", ['$scope', '$http', '$window',
 
     $scope.createAdmin = function () {
       $scope.registerVals.admin = true;
+      $scope.register();
+    };
 
+    $scope.register = function () {
       if ($scope.registrationForm.$invalid) {
         return;
       }
 
       $http.post('/api/user/register', $scope.registerVals)
-        .error(function(data, status, headers, config) {
+        .error(void function(data, status, headers, config) {
           if (status === 0) {
             $window.alert("Server not currently reachable, try again later");
           } else if (!!data && !!data.err) {
@@ -49,7 +52,10 @@ nas.controller("AuthCtrl", ['$scope', '$http', '$window',
           } else {
             $window.alert("ERROR: " + status);
           }
-      });
+        })
+        .success(function (data, status, headers, config) {
+          $window.location.href = '/';
+        });
     };
   }
 ]);
