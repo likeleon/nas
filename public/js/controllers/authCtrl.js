@@ -1,7 +1,9 @@
 'use strict';
 
-nas.controller("AuthCtrl", ['$scope', '$http', '$window',
-  function ($scope, $http, $window) {
+nas.controller("AuthCtrl", ['$scope', '$http', '$window', 'userService',
+  function ($scope, $http, $window, userService) {
+    var runAuth;
+
     $scope.rememberMe = false;
     $scope.registerVals = {
       email: "",
@@ -20,6 +22,12 @@ nas.controller("AuthCtrl", ['$scope', '$http', '$window',
       }
     }
 
+    runAuth = function (id) {
+      userService.authenticate(id, function (err) {
+        $window.location.href = '/';
+      })
+    };
+
     $scope.auth = function () {
       var data = {
         email: $scope.loginEmail,
@@ -28,7 +36,7 @@ nas.controller("AuthCtrl", ['$scope', '$http', '$window',
 
       $http.post('/api/user/auth', data)
         .success(function (data, status, headers, config) {
-          $window.location.href = '/';
+          runAuth(data.id);
         })
         .error(errorAlert);
     };
@@ -54,7 +62,7 @@ nas.controller("AuthCtrl", ['$scope', '$http', '$window',
           }
         })
         .success(function (data, status, headers, config) {
-          $window.location.href = '/';
+          runAuth(data.id);
         });
     };
   }

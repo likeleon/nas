@@ -15,8 +15,9 @@ router.get('/', middleware.locals, function (req, res) {
       return res.redirect('/static/create-admin');
     }
 
-    if (!req.session || !req.session.userId)
+    if (!req.headers['x-api-user'] && (!req.session || !req.session.userId)) {
       return res.redirect('/static/front');
+    }
 
     return res.render('index', {
       title: 'nas',

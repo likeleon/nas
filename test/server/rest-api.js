@@ -1,8 +1,9 @@
-var request = require('superagent');
+var superagentDefaults = require('superagent-defaults');
 var utils = require('../../src/utils.js');
 var app = require('../../src/server');
 var baseUrl = 'http://localhost:' + app.server.address().port;
 var User = require('../../src/models/user').model;
+var request = superagentDefaults();
 
 describe('rest-api', function () {
   describe('user', function () {
@@ -186,12 +187,15 @@ describe('rest-api', function () {
             admin: false
           })
           .end(function (res) {
-            User.findOne({'auth.email':res.body.email, 'auth.password':res.body.password}, function (err, user) {
+            User.findOne({'_id':res.body._id}, function (err, user) {
               if (err) {
                 done(err);
                 return;
               }
               currentUser = user;
+              request
+                .set('Accept', 'application/json')
+                .set('x-api-user', user._id);
               done();
             });
           });

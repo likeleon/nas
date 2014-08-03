@@ -1,3 +1,3 @@
 'use strict';
 
-var nas = angular.module('nas', []);
+var nas = angular.module('nas', ['userServices']);

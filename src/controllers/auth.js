@@ -73,6 +73,24 @@ api.login = function (req, res, next) {
   if (!email || !password) {
     return res.json(401, {err: 'Missing :email or :password in request body, please provide both'});
   }
-  req.session.userId = email + password;
-  res.json();
+  User.findOne({'auth.email': email}, function (err, user) {
+    if (err) {
+      return res.json(500, {err:err});
+    }
+    if (!user) {
+      return res.json(401, {err:"email '" + email + "' not found."});
+    }
+    User.findOne({
+      'auth.email': email,
+      'auth.hashed_password': utils.encryptPassword(password, user.auth.salt)
+    }, function (err, user) {
+      if (err) {
+        return res.json(500, {err:err});
+      }
+      if (!user) {
+        return res.json(401, {err:'Incorrect password'});
+      }
+      res.json({id: user._id});
+    });
+  });
 };

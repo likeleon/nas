@@ -1,9 +1,11 @@
-var request = require('superagent');
+var superagentDefaults = require('superagent-defaults');
 var utils = require('../../../src/utils.js');
 var User = require('../../../src/models/user').model;
 
 var app = require('../../../src/server');
 var baseUrl = 'http://localhost:' + app.server.address().port;
+
+var request = superagentDefaults();
 
 describe('routes/pages', function () {
 
@@ -60,23 +62,34 @@ describe('routes/pages', function () {
     });
 
     describe('With authentication', function () {
-      var admin = request.agent();
-
       before(function (done) {
-        admin
+        request
           .post(baseUrl + '/api/user/auth')
           .send({
             email: adminEmail,
             password: adminPassword
           })
           .end(function (err, res) {
-            err ? done(err) : done();
+            if (err) {
+              done(err);
+              return;
+            }
+            User.findOne({'_id':res.body.id}, function (err, user) {
+              if (err) {
+                done(err);
+                return;
+              }
+              request
+                .set('Accept', 'application/json')
+                .set('x-api-user', user._id);
+              done();
+            });
           })
       });
 
       describe('GET /', function () {
         it('should display files table', function (done) {
-          admin
+          request
             .get(baseUrl + '/')
             .end(function (err, res) {
               res.should.have.status(200);
