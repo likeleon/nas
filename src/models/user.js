@@ -27,5 +27,11 @@ var UserSchema = new Schema({
   }
 });
 
+UserSchema.methods.toJSON = function () {
+  var doc = this.toObject();
+  doc.id = doc._id;
+  return doc;
+};
+
 module.exports.schema = UserSchema;
 module.exports.model = mongoose.model("User", UserSchema);
