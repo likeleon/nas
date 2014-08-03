@@ -70,6 +70,9 @@ api.registerUser = function (req, res) {
 api.login = function (req, res, next) {
   var email = req.body.email;
   var password = req.body.password;
+  if (!email || !password) {
+    return res.json(401, {err: 'Missing :email or :password in request body, please provide both'});
+  }
   req.session.userId = email + password;
   res.json();
 };

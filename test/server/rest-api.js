@@ -168,5 +168,64 @@ describe('rest-api', function () {
           });
       });
     });
+
+    describe('auth', function () {
+      var currentUser = null, email = null, password = null;
+
+      before (function (done) {
+        var randomId = utils.uuid();
+        email = randomId + "@gmail.com";
+        password = randomId;
+        request
+          .post(baseUrl + '/api/user/register')
+          .set('Accept', 'application/json')
+          .send({
+            email: email,
+            password: password,
+            confirmPassword: password,
+            admin: false
+          })
+          .end(function (res) {
+            User.findOne({'auth.email':res.body.email, 'auth.password':res.body.password}, function (err, user) {
+              if (err) {
+                done(err);
+                return;
+              }
+              currentUser = user;
+              done();
+            });
+          });
+      });
+
+      after (function () {
+        User.remove({}).exec();
+      });
+
+      it('should auth with valid email and password', function (done) {
+        request
+          .post(baseUrl + '/api/user/auth')
+          .set('Accept', 'application/json')
+          .send({'email':email, 'password':password})
+          .end(function (res) {
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.id.should.equal(currentUser.id);
+            done();
+          });
+      });
+
+      it('should fail with missing password', function (done) {
+        request
+          .post(baseUrl + '/api/user/auth')
+          .set('Accept', 'application/json')
+          .send({'email':email})
+          .end(function (res) {
+            res.should.have.status(401);
+            res.should.be.json;
+            res.body.err.should.equal('Missing :email or :password in request body, please provide both');
+            done();
+          });
+      });
+    });
   });
 });
