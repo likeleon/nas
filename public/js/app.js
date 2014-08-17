@@ -2,6 +2,9 @@
 
 var nas = angular.module('nas', ['ui.router', 'ui.bootstrap', 'userServices', 'filesServices', 'notificationServices']);
 
+nas.constant("STORAGE_USER_ID", 'nas-user');
+nas.constant("STORAGE_SETTINGS_ID", 'nas-settings');
+
 nas.config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider
     .otherwise('/files/');

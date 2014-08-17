@@ -9,6 +9,7 @@ var http = require('http');
 var path = require('path');
 var _ = require('./lib/underscore-min.js');
 var nconf = require('nconf');
+var middleware = require('./middleware');
 
 /**
  * Setup configurations
@@ -32,11 +33,12 @@ mongoose.connect(node_db_uri, { auto_reconnect:true }, function (err) {
  */
 var app = express();
 
+app.use(express.logger('dev'));
 app.set('port', nconf.get('port'));
 app.set('views', path.join(__dirname, '/../views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
-app.use(express.logger('dev'));
+app.use(middleware.cors);
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
